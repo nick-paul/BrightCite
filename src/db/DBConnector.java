@@ -16,7 +16,7 @@ public class DBConnector {
 	public final static String DB_Driver = "org.gjt.mm.mysql.Driver";
 	
 	/** Database name */
-	public final static String DB_NAME = "robofestnet";
+	public final static String DB_NAME = "world";
     
 	/** Database URL */
 	public final static String DB_URL = "jdbc:mysql://localhost:3306/" + DB_NAME;
@@ -33,7 +33,7 @@ public class DBConnector {
 	 * This method should only be used within the <code>database</code> package.
 	 * 
 	 */
-     protected static Connection getConnection(){
+     public static Connection getConnection(){
         if (currentConnection == null) {
         	try{
 	        	Class.forName("com.mysql.jdbc.Driver");

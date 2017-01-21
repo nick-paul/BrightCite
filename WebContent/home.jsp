@@ -36,7 +36,7 @@ JSP close comment
 <h1><%= header %></h1>
 
 
-
+<h1><%=request.getAttribute("sqltest") %></h1>
 
 
 <%-- You may also include fragments of java code in java blocks

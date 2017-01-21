@@ -4,6 +4,13 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import db.DBConnector;
+
 
 /*
  * 
@@ -52,6 +59,8 @@ public class BasicController {
 		request.setAttribute("bgColor", "#"+hexColor);
 		
 		System.out.println(hexColor);
+		
+		
 		
 		return "home.jsp";
 	}
