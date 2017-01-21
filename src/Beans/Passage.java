@@ -22,6 +22,13 @@ public class Passage {
 		passageRating = 0.0f;
 	}
 	
+	public Passage newPassage(int siteID, String text) {
+		Passage p = new Passage();
+		p.setSiteID(siteID);
+		p.setText(text);
+		return p;
+	}
+	
 	
 	
 	public ArrayList<Citation> getCitations() {
