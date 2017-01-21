@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Beans.Site;
+
 /* Gets stuff from the database */
 public class DBGetter {
 	
@@ -23,6 +25,11 @@ public class DBGetter {
 		}			
 		
 		return out;
+	}
+	protected static Site getSiteBean(ResultSet rs)
+	{
+		//Site site=new Site();
+		return null;
 	}
 	
 }

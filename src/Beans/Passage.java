@@ -1,7 +1,16 @@
 package Beans;
 
-public class Passage {
+import java.util.ArrayList;
 
+public class Passage {
+	ArrayList<Citation> citations;
+	
+	public ArrayList<Citation> getCitations() {
+		return citations;
+	}
+	public void setCitations(ArrayList<Citation> citations) {
+		this.citations = citations;
+	}
 	int siteID;
 	public int getSiteID() {
 		return siteID;
