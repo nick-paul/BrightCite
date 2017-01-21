@@ -2,6 +2,11 @@ package Beans;
 
 import java.util.ArrayList;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+
 public class Site {
 	int siteID;
 	String URL;
@@ -31,6 +36,26 @@ public class Site {
 	}
 	public void setSiteRating(float siteRating) {
 		this.siteRating = siteRating;
+	}
+	
+	
+	
+	protected JsonObject getJsonObject() {
+		JsonObjectBuilder job = Json.createObjectBuilder();
+		job.add("url", URL);
+		job.add("siteRating", siteRating);
+		
+		JsonArrayBuilder psgsJson = Json.createArrayBuilder();
+		for (Passage psg : passanges) {
+			psgsJson.add(psg.getJsonObject());
+		}
+		job.add("passages", psgsJson);
+		
+		return job.build();
+	}
+	
+	public String getJsonSring() {
+		return getJsonObject().toString();
 	}
 	
 }
