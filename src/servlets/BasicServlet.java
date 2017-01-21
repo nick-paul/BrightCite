@@ -15,6 +15,7 @@ import org.apache.catalina.Session;
 
 import controllers.BasicController;
 import db.DBConnector;
+import db.DBGetter;
 
 /**
  * Basic Servlet
@@ -64,45 +65,16 @@ public class BasicServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException{  
-    	
-    	String out = "";
 
 		
-		Connection conn = DBConnector.getConnection();
-		System.out.println(conn);
-		PreparedStatement ps = null;
+		
 		try {
-			ps = conn.prepareStatement("select * from city limit 10");
-			System.out.println("ps: " + ps);
-			// TODO Auto-generated catch block
-						ResultSet rs = null;
-							rs = ps.executeQuery();
-							System.out.println("rs: " + rs);
-
-
-
-							try {
-								if (!rs.next()) {
-									out = "no data";
-								} else {
-									out = rs.getString("Name");
-								}
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							
-						
+			request.setAttribute("sqltest", DBGetter.getTestCity());
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
-			
+			request.setAttribute("sqltest", " No database connection");
+
 		}
-		
-		System.out.println("out: " + out);
-		
-		
-		request.setAttribute("sqltest", out);
     	
     	//First, we get the command that the client has sent to the server
     	String command = request.getParameter("command");
