@@ -6,13 +6,34 @@ import javax.json.JsonObjectBuilder;
 
 public class Citation {
 	int citationID;
+	int passageID;
+	String source;
+	int passageIntegrity;
+	int flagCount;
+	
+	
+	public Citation() {
+		this.citationID = 0;
+		this.passageID = 0;
+		this.source = "";
+		this.passageIntegrity = 0;
+		this.flagCount = -1;
+	}
+	
+	public static Citation newCitation(String source, int passageID) {
+		Citation c = new Citation();
+		c.setSource(source);
+		c.setPassageID(passageID);
+		return c;
+	}
+	
+	
 public int getCitationID() {
 	return citationID;
 }
 public void setCitationID(int citationID) {
 	this.citationID = citationID;
 }
-int passageID;
 public int getPassageID() {
 	return passageID;
 }
@@ -37,9 +58,9 @@ public int getFlagCount() {
 public void setFlagCount(int flagCount) {
 	this.flagCount = flagCount;
 }
-String source;
-int passageIntegrity;
-int flagCount;
+
+
+
 
 	protected JsonObject getJsonObject() {
 		JsonObjectBuilder job = Json.createObjectBuilder();

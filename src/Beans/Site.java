@@ -13,6 +13,19 @@ public class Site {
 	float siteRating;
 	ArrayList<Passage> passanges;
 	
+	public Site() {
+		this.siteID = 0;
+		this.URL = "";
+		this.siteRating = 0.0f;
+		this.passanges = null;
+	}
+	
+	public Site newSite(String url) {
+		Site s = new Site();
+		s.setURL(url);
+		return s;
+	}
+	
 	public ArrayList<Passage> getPassanges() {
 		return passanges;
 	}
