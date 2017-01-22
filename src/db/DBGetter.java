@@ -136,4 +136,25 @@ public class DBGetter {
 		site.setPassanges(getAllPassages(site.getSiteID()));
 		return(site);
 	}
+	public static Site getSite(int ID)
+	{
+		Site site=new Site();
+		PreparedStatement ps;
+		try {
+			ps = DBConnector.getConnection().prepareStatement(
+					"SELECT * FROM site WHERE siteID = ?");
+			ps.setInt(1,ID);
+			ResultSet rs=ps.executeQuery();
+			if (!rs.next()) {
+				System.out.println("No rows");
+				return null;
+			}
+			site=getSiteBean(rs);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		site.setPassanges(getAllPassages(site.getSiteID()));
+		return(site);
+	}
 }
