@@ -93,6 +93,15 @@ public class BasicServlet extends HttpServlet {
     	case "getsite":
     		forwardToPage = BasicController.getsite(request);
     		break;
+    	case "newPassage":
+    		try {
+				forwardToPage = BasicController.newPassage(request);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				forwardToPage = "home.jsp";
+			}
+    		
+    		break;
     	default:
     		//Default, return back to the home page
     		forwardToPage = "home.jsp";

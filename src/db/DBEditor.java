@@ -17,9 +17,9 @@ public class DBEditor {
 				"INSERT INTO citation VALUES(0,?,?,?,0)"
 				);
 		
-		ps.setInt(0, citation.getPassageID());
-		ps.setString(1, citation.getSource());
-		ps.setInt(2, citation.getPassageIntegrity());
+		ps.setInt(1, citation.getPassageID());
+		ps.setString(2, citation.getSource());
+		ps.setInt(3, citation.getPassageIntegrity());
 		
 		ps.execute();
 	}
@@ -30,9 +30,9 @@ public class DBEditor {
 				"INSERT INTO passage VALUES(0,?,?,?)"
 				);
 		
-		ps.setInt(0, passage.getSiteID());
-		ps.setString(1, passage.getText());
-		ps.setFloat(2, passage.getPassageRating());
+		ps.setInt(1, passage.getSiteID());
+		ps.setString(2, passage.getText());
+		ps.setFloat(3, passage.getPassageRating());
 		
 		ps.execute();
 	}
@@ -43,8 +43,8 @@ public class DBEditor {
 				"INSERT INTO site VALUES(0,?,?)"
 				);
 		
-		ps.setString(0, site.getURL());
-		ps.setFloat(1, site.getSiteRating());
+		ps.setString(1, site.getURL());
+		ps.setFloat(2, site.getSiteRating());
 		
 		ps.execute();
 	}

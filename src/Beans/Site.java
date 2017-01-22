@@ -20,7 +20,7 @@ public class Site {
 		this.passanges = null;
 	}
 	
-	public Site newSite(String url) {
+	public static Site newSite(String url) {
 		Site s = new Site();
 		s.setURL(url);
 		return s;

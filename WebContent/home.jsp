@@ -2,145 +2,309 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html height="100%">
+<% final String CP = request.getContextPath(); %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>HelloWorldJSP</title>
+
 </head>
-<body style="background-color: <%= request.getAttribute("bgColor")%>;">
-
-
-
-
-<%-- 
-JSP comment blocks start with <%-- and end with the reverse
-
-	Code inside <% .. %> is translated into literal java code
-	Everything else is HTML
-	
-	Expressions inside <%= .. %> are evaluated and a string is returned.
-	  Code inside these braces DO NOT need a semicolon
-	  For example, we will define a String variable in a java block
-	  and then insert the variable data using the <%= %> block
-	  
-JSP close comment 
---%>
-
+<body height="100%">
 
 <%
-	//This will be translated into literal java code
-	String header = "Welcome!";
-%>
-
-<%-- Notice: we do not include a semicolon after "header" --%>
-<h1><%= header %></h1>
+	final String MAIN_COLOR = "#58639a";
+	%>
 
 
-<h1><%=request.getAttribute("sqltest") %></h1>
+<style>
+/*
+* Pseudo-Material
+*/
+
+.material {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #CCC;
+	-webkit-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+}
+
+form {
+  width:60%;
+  margin:0 auto;
+}
+
+.boxbox {
+  height:50px;
+}
+
+.search, .submit {
+  font-size:18px;
+  padding:0 15px;
+  height: 100%;
+  border:none;
+}
+
+.search {
+  highlight-color: #58639a;
+}
 
 
-<%-- You may also include fragments of java code in java blocks
-     for example, below we will display the text "Good Morning"
-     or "Good Afternoon" depending on whether is it AM or PM
---%>
+textarea:focus, input:focus {
+   color:#58639a;
+   outline:none;
+}
 
-<%
-	//First, get the current time
-	//This is nomal java code
-	Calendar cal = Calendar.getInstance();
-%>
-	
-<%-- Everywhere we want to use Java (even partial java statements),
-     we must wrap in Java blocks, everywhere else is translated directly into html.
---%>
+.submit {
+  font-weight:600;
+  background:#58639a;
+  color:#fff;
+  height:100%;
+  width:30%;
+  float:right;
+  transition: all 100ms ease-in-out;
+}
 
-<% if (cal.get(Calendar.AM_PM) == Calendar.PM) { %>
-	<h2>Good Afternoon</h2>
-<% } else { %>
-	<h2>Good Morning</h2>
-<% } %>
-	
-	
-	
 
-	
-<%-- If we want to send data to the server, we will use a form.
-		HTML forms require an "action" if we want them to submit to our server.
-		The action is just a URL that the data will be posted to.
-		In this case, we will have the form post the data to our BasicServlet.java
-		class. 
-	
-	In web.xml, you will find a "servlet-mapping" field that maps the name
-		"basicServlet" to the servlet "serlets.BasicServlets". We will use the name
-		basicServlet in our URL
-		
-	To get the complete URL, we will need the context path. The context
-		path is the front of the url and includes the domain (i.e. "http://google.com/..."
-		We can get this information using the following java code: 
-		
-	We want to add a '?' followed by a list of parameters after our full URL.
-	    Parameters are key/value pairs separated by '&'. For example:
-	      
-	      http://some_url.com/some/page?key1=value1&key2=value2&...
-	    
-	    These key/value pairs will be directly accessible by the server and we
-	    can use them to decide what information we are submitting. For our
-	    form, we will add the pair "command=nameForm". This way the server
-	    can access the value for the key "command" and know that we are submitting
-	    the form named "nameForm".
-	    
-	Add method="POST" to the form to tell the client (chrom, firefox, etc.) that we
-	    want to submit the data to the server.
---%>
+.submit:hover {
+  background: #4774aa;
+}
 
-<% String contextPath = request.getContextPath(); %>
+.search {
+    margin: auto;
+}
 
-<%-- Now we can define the action of our form to be (context path) + (BasicServlet location) --%>
-<form action="<%= contextPath %>/basicServlet?command=nameForm" method="POST">
 
-	<%--
-		Next, we will add an input to the form.
-		For a basic text input we use the type "text"
-		We also add a name to the input so the server can access it later
-			in this case we will call it "myName"
-	--%>
-	<p>Enter your name</p>
-	<input type="text" name="myName">
-	
-	<%-- All forms should have a submit button,
-		 this button will automatically execute the action of the form
-    --%>
-	<input type="submit" value="Submit">
-	
-	
+/************************
+ POP UP
+*************************/
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+font-family: Arial, Helvetica, sans-serif;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+    position: fixed;
+    bottom: 0;
+    background-color: #fefefe;
+    width: 100%;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 10px;
+    background-color: <%= MAIN_COLOR %>;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: <%= MAIN_COLOR %>;
+    color: white;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0} 
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+
+
+</style>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<center>
+<img width="50%" src="<%= CP %>/img/BrightCite.png" />
+</center>
+
+<form action="<%= CP %>/hello?command=getsite" method="POST">
+	<div class="boxbox material">
+	 	<input class="search" type="text" placeholder="Enter a URL"/>
+	  	<input class="submit" type="submit" value="GO"/>
+  	</div>
 </form>
 
-<br />
-<hr />
-<br />
-
-<%-- Below we have another form that asks for the users favorite color using a dropdown list --%>
-<p>Please select a color:</p>
-<form action="<%= contextPath %>/basicServlet?command=colorForm" method="POST">
-	<select name="color">
-	    <option value="0000FF">Blue</option>
-	    <option value="00FF00">Green</option>
-	    <option value="FF0000">Red</option>
-	    <option value="FFF000">Yellow</option>
-  	</select>
-  	<input type="submit" value="Submit">
-</form>
 
 <br />
 <br />
-<hr />
+<br />
+<br />
+<br />
+<br />
 <br />
 
-<form action="<%= contextPath %>/hello?command=getsite" method="POST">
-	<p>Enter a url</p>
-	<input type="text" name="url">
-	<input type="submit" value="Submit">
-</form>
+<style>
+.round-button {
+    display:block;
+    width:50px;
+    height:50px;
+    line-height:50px;
+    border-radius: 50%;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    background: <%=MAIN_COLOR%>;
+    font-size:20px;
+    font-weight:bold;
+    position:fixed;
+right:15px;
+bottom:15px;
+}
+.round-button:hover {
+    background: #262626;
+}
+
+textarea, input {
+    border: none;
+    overflow: auto;
+    outline: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+</style>
+
+<button id="myBtn" href="http://example.com" class="round-button material">+</button>
+
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Add a Passage</h2>
+    </div>
+    <div class="modal-body">
+    	<br />
+      <form action="<%= CP %>/hello?command=newPassage" method="POST">
+		<div class='control_group'>
+	      	<div class='label'>
+	        	<label for='passageIn'>Passage:</label>
+	      	</div>
+	      	<div class='material'>
+	       		<textarea id='passageIn' name="passage" cols="120" rows="7"></textarea>
+	      	</div>
+   		</div>
+   		<br />
+   		<div class='control_group'>
+	      	<div class='label'>
+	        	<label for='urlIn'>URL:</label>
+	      	</div>
+	      	<div class='material'>
+	       		<input id='urlIn' name="url" style="width:100%" />
+	      	</div>
+   		</div>
+   		
+   		<br />
+   		
+		<input type="submit" value="Submit" />
+      </form>
+      
+      
+      <br />
+    </div>
+    <div class="modal-footer">
+      <h3>Modal Footer</h3>
+    </div>
+  </div>
+
+</div>
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 
 </body>
