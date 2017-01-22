@@ -62,13 +62,13 @@ public class BasicServlet extends HttpServlet {
 
 		
 		
-		try {
-			request.setAttribute("sqltest", DBGetter.getTestCity());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			request.setAttribute("sqltest", " No database connection");
-
-		}
+//		try {
+//			request.setAttribute("sqltest", DBGetter.getTestCity());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			request.setAttribute("sqltest", " No database connection");
+//
+//		}
     	
     	//First, we get the command that the client has sent to the server
     	String command = request.getParameter("command");
@@ -89,6 +89,9 @@ public class BasicServlet extends HttpServlet {
     		break;
     	case "colorForm":
     		forwardToPage = BasicController.colorForm(request);
+    		break;
+    	case "getsite":
+    		forwardToPage = BasicController.getsite(request);
     		break;
     	default:
     		//Default, return back to the home page

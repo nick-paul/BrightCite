@@ -34,7 +34,7 @@ public class DBGetter {
 		Site site=new Site();
 		try {
 			site.setURL(rs.getString("url"));
-			site.setSiteID(rs.getInt("ID"));
+			site.setSiteID(rs.getInt("siteID"));
 			site.setSiteRating(rs.getFloat("siteRanking"));
 			site.setPassanges(null);
 		} catch (SQLException e) {
@@ -124,6 +124,10 @@ public class DBGetter {
 					"SELECT * FROM site WHERE url = ?");
 			ps.setString(1,URL);
 			ResultSet rs=ps.executeQuery();
+			if (!rs.next()) {
+				System.out.println("No rows");
+				return null;
+			}
 			site=getSiteBean(rs);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
