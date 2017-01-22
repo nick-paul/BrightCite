@@ -25,6 +25,7 @@
 
 <div id="passages" align="left">
 <%for(Passage passage:site.getPassanges()){%>
+<hr>
 <%if(passage.getPassageRating()>0){%>
 <font size="5" color="Green">
 <%}else{ %>
@@ -50,17 +51,42 @@
 <tr>
 
 <td>
+<div class='control_group'>
+      <div class='label'>
+        <label>which passage are you supporting or correcting?</label>
+      </div>
+      <div class='input'>
+        <select>
+        <%for(Passage passage:site.getPassanges()){%>
+          <option>
+         "<%=passage.getText().substring(0, 30).concat("...") %>"
+          </option>
+          <%} %>
+        </select>
+      </div>
+    </div>
+
 <div id="input">
 <label for="citeBox">Enter Cites Here</label><br>
 <input id="citeBox" type="text">
+<hr>
 </div>
-<div id="input">
-<label for=ratingsBox">Rate <%=site.getURL()%>'s accuracy</label><br>
-<input id="radio1" type="radio">
-<input id="radio2" type="radio">
-<input id="radio3" type="radio">
-</div>
-
+ <div class='input'>
+ 		<label>How accurate was this article?</label>
+        <div class='control'>
+          <input id='radio_01' name='radio_vertical' type='radio'>
+          <label for='radio_01'>Accurate</label>
+        </div>
+        <div class='control'>
+          <input id='radio_02' name='radio_vertical' type='radio'>
+          <label for='radio_02'>Neutral</label>
+        </div>
+        <div class='control'>
+          <input id='radio_03' name='radio_vertical' type='radio'>
+          <label for='radio_03'>Inaccurate</label>
+        </div>
+ </div>
+<hr>
 </td>
 
 <td>
