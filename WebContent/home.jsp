@@ -42,7 +42,6 @@ form {
 
 .search, .submit {
   font-size:18px;
-  padding:0 15px;
   height: 100%;
   border:none;
 }
@@ -163,6 +162,10 @@ font-family: Arial, Helvetica, sans-serif;
     to {opacity: 1}
 }
 
+.mainform * {
+	width:100%;
+}
+
 
 
 </style>
@@ -177,9 +180,9 @@ font-family: Arial, Helvetica, sans-serif;
 <img width="50%" src="<%= CP %>/img/BrightCite.png" />
 </center>
 
-<form action="<%= CP %>/hello?command=getsite" method="POST">
+<form class="mainform" action="<%= CP %>/hello?command=getsite" method="POST">
 	<div class="boxbox material">
-	 	<input class="search" type="text" placeholder="Enter a URL"/>
+	 	<input class="search" type="text" name="url" placeholder="Enter a URL"/>
 	  	<input class="submit" type="submit" value="GO"/>
   	</div>
 </form>
@@ -270,7 +273,7 @@ textarea, input {
       <br />
     </div>
     <div class="modal-footer">
-      <h3>Modal Footer</h3>
+      <h3>&nbsp;</h3>
     </div>
   </div>
 

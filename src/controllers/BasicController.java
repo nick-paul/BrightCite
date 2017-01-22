@@ -72,7 +72,15 @@ public class BasicController {
 
 	public static String getsite(HttpServletRequest request) {
 		String url = request.getParameter("url");
+		url = url.trim();
+		
+		System.out.println("site: " + url);
+		
 		Site site = DBGetter.getSite(url);
+		
+		if (site == null) {
+			return "home.jsp";
+		}
 		
 		request.setAttribute("siteinfo", site);
 		
@@ -81,7 +89,7 @@ public class BasicController {
 
 	public static String newPassage(HttpServletRequest request) throws SQLException {
 		String passage_str = request.getParameter("passage");
-		String url = request.getParameter("url");
+		String url = request.getParameter("url").trim();
 		
 		Site site = DBGetter.getSite(url);
 		if (site == null) {
