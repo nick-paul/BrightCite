@@ -157,4 +157,25 @@ public class DBGetter {
 		site.setPassanges(getAllPassages(site.getSiteID()));
 		return(site);
 	}
+	public static Passage getPassage(int ID)
+	{
+		Passage passage=new Passage();
+		PreparedStatement ps;
+		try {
+			ps = DBConnector.getConnection().prepareStatement(
+					"SELECT * FROM passage WHERE passageID = ?");
+			ps.setInt(1,ID);
+			ResultSet rs=ps.executeQuery();
+			if (!rs.next()) {
+				System.out.println("No rows");
+				return null;
+			}
+			passage=getPassageBean(rs);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		passage.setCitations(getAllCitations(passage.getPassageID()));
+		return(passage);
+	}
 }
