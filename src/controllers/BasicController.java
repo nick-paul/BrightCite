@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import Beans.Passage;
 import Beans.Site;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import db.DBConnector;
+import db.DBEditor;
 import db.DBGetter;
 
 
@@ -70,10 +72,30 @@ public class BasicController {
 
 	public static String getsite(HttpServletRequest request) {
 		String url = request.getParameter("url");
-		
 		Site site = DBGetter.getSite(url);
 		
-		System.out.println(site.getJsonSring());
+		request.setAttribute("siteinfo", site);
+		
+		return "dashboard.jsp";
+	}
+
+	public static String newPassage(HttpServletRequest request) throws SQLException {
+		String passage_str = request.getParameter("passage");
+		String url = request.getParameter("url");
+		
+		Site site = DBGetter.getSite(url);
+		if (site == null) {
+			site = Site.newSite(url);
+			DBEditor.addNewSite(site);
+			site = DBGetter.getSite(url);
+		}
+		
+		Passage passage = Passage.newPassage(site.getSiteID(), passage_str);
+		
+		DBEditor.addNewPassage(passage);
+		
+		//Refresh the site
+		site = DBGetter.getSite(url);
 		
 		request.setAttribute("siteinfo", site);
 		
