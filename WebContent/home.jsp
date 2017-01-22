@@ -131,6 +131,17 @@ JSP close comment
   	<input type="submit" value="Submit">
 </form>
 
+<br />
+<br />
+<hr />
+<br />
+
+<form action="<%= contextPath %>/hello?command=getsite" method="POST">
+	<p>Enter a url</p>
+	<input type="text" name="url">
+	<input type="submit" value="Submit">
 </form>
+
+
 </body>
 </html>

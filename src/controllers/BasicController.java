@@ -4,12 +4,15 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import Beans.Site;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import db.DBConnector;
+import db.DBGetter;
 
 
 /*
@@ -63,6 +66,18 @@ public class BasicController {
 		
 		
 		return "home.jsp";
+	}
+
+	public static String getsite(HttpServletRequest request) {
+		String url = request.getParameter("url");
+		
+		Site site = DBGetter.getSite(url);
+		
+		System.out.println(site.getJsonSring());
+		
+		request.setAttribute("siteinfo", site);
+		
+		return "dashboard.jsp";
 	}
 	
 }
