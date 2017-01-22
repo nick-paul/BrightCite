@@ -102,6 +102,14 @@ public class BasicServlet extends HttpServlet {
 			}
     		
     		break;
+    	case "newCitation":
+    		try {
+				forwardToPage = BasicController.newCitation(request);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				forwardToPage = "home.jsp";
+			}
+    		break;
     	default:
     		//Default, return back to the home page
     		forwardToPage = "home.jsp";

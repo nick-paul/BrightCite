@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import Beans.Citation;
 import Beans.Passage;
 import Beans.Site;
 
@@ -107,6 +108,32 @@ public class BasicController {
 		
 		request.setAttribute("siteinfo", site);
 		
+		return "dashboard.jsp";
+	}
+
+	public static String newCitation(HttpServletRequest request) throws SQLException {
+		String passageid_str = request.getParameter("passageID");
+		String citeText = request.getParameter("citeText");
+		String integrity = request.getParameter("integrity");
+		String siteID_str = request.getParameter("siteID");
+		
+		int passageID = Integer.parseInt(passageid_str);
+		
+		Citation citation = Citation.newCitation(citeText, passageID);
+		citation.setPassageIntegrity(Integer.parseInt(integrity));
+		DBEditor.addNewCitation(citation);
+		
+		System.out.println("pid: " + passageID);
+		System.out.println("citetext: " + citeText);
+		System.out.println("integrity: " + integrity);
+		System.out.println("siteID: " + siteID_str);
+
+		int siteID = Integer.parseInt(siteID_str);
+		
+		Site site = DBGetter.getSite(siteID);
+		request.setAttribute("siteinfo", site);
+
+
 		return "dashboard.jsp";
 	}
 	

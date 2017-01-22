@@ -54,44 +54,52 @@
 <tr>
 
 <td>
-<div class='control_group'>
-      <div class='label'>
-        <label>which passage are you supporting or correcting?</label>
-      </div>
-      <div class='input'>
-        <select>
-        <%for(Passage passage:site.getPassanges()){%>
-          <option>
-          <%String userPassage=passage.getText();
-          if(userPassage.length()>=30){
-          userPassage=userPassage.substring(0, 29);}%>
-          "<%=userPassage.concat("...")%>"  
-          </option>
-          <%} %>
-        </select>
-      </div>
-    </div>
 
-<div id="input">
-<label for="citeBox">Enter Cites Here</label><br>
-<input id="citeBox" type="text">
-<hr>
-</div>
- <div class='input'>
- 		<label>How accurate was this article?</label>
-        <div class='control'>
-          <input id='radio_01' name='radio_vertical' type='radio'>
-          <label for='radio_01'>Accurate</label>
-        </div>
-        <div class='control'>
-          <input id='radio_02' name='radio_vertical' type='radio'>
-          <label for='radio_02'>Neutral</label>
-        </div>
-        <div class='control'>
-          <input id='radio_03' name='radio_vertical' type='radio'>
-          <label for='radio_03'>Inaccurate</label>
-        </div>
- </div>
+<form action="<%= CP %>/hello?command=newCitation" method="POST">
+	<div class='control_group'>
+	      <div class='label'>
+	        <label>which passage are you supporting or correcting?</label>
+	      </div>
+	      <div class='input'>
+	        <select name="passageID">
+	        	<% for(Passage passage:site.getPassanges()) {%>
+	          		<option value="<%= passage.getPassageID() %>">
+	          	<%	String userPassage=passage.getText();
+	          		if(userPassage.length()>=30) {
+	          			userPassage=userPassage.substring(0, 29);
+	          		}
+	          	%>
+	          	"<%=userPassage.concat("...")%>"  
+	          	</option>
+	          <%} %>
+	        </select>
+	      </div>
+	    </div>
+	
+	<div id="input">
+	<label for="citeBox">Enter Cites Here</label><br>
+	<input id="citeBox" name="citeText" type="text">
+	<hr>
+	</div>
+	 <div class='input'>
+	 		<label>How accurate was this article?</label>
+	        <div class='control'>
+	          <input id='radio_01' name='integrity' value="1" type='radio'>
+	          <label for='radio_01'>Accurate</label>
+	        </div>
+	        <div class='control'>
+	          <input id='radio_02' name='integrity' value="0" type='radio'>
+	          <label for='radio_02'>Neutral</label>
+	        </div>
+	        <div class='control'>
+	          <input id='radio_03' name='integrity' value="-1" type='radio'>
+	          <label for='radio_03'>Inaccurate</label>
+	        </div>
+	 </div>
+	 
+	 <input type="hidden" name="siteID" value="<%= site.getSiteID() %>" />
+	 <input type="submit" value="Submit" />
+</form>
 <hr>
 </td>
 
